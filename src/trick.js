@@ -3,11 +3,12 @@ var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
+const MAX_TIME_DISPLAYABLE = 3;
 
 class Trick {
+
   constructor(totalLength) {
-    this.totalLength = totalLength || 60;
+    this.totalLength = totalLength || 21;
     this.timesDisplayed = 0;
   }
 
@@ -26,7 +27,7 @@ class Trick {
   };
 
   revealNumber(numbers) {
-    return numbers[Math.floor(this.totalLength / 2)];
+    return numbers[Math.floor(numbers.length / 2)];
   };
 
   processInput(batches, self, input) {
@@ -55,10 +56,10 @@ class Trick {
   };
 
   isTimeToReveal() {
-    return this.timesDisplayed == 3;
+    return this.timesDisplayed == MAX_TIME_DISPLAYABLE;
   }
 
-  show(numbers = this.numbersGenerator()) {
+  show(numbers = this.generateRandomNumbers()) {
     var setOfNumbers = this.divideInBatches(numbers);
     console.log(this.timesDisplayed);
     this.timesDisplayed++;
@@ -75,7 +76,7 @@ class Trick {
     rl.question(numbersToDisplay, this.processInput.bind(null, batches, this));
   };
 
-  numbersGenerator() {
+  generateRandomNumbers() {
     var numbers = [];
     while (numbers.length < this.totalLength) {
       var number = Math.round(Math.random() * this.totalLength);
@@ -94,8 +95,6 @@ class Trick {
       return " ".repeat(leftPadding) + number + " ".repeat(rightPadding);
     }).join("|");
   };
-
 }
 
-var trick = new Trick();
-trick.show();
+module.exports = Trick;
