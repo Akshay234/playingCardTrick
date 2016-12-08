@@ -7,7 +7,7 @@ var rl = readline.createInterface({
 
 class Trick {
   constructor(totalLength) {
-    this.totalLength = totalLength || 21;
+    this.totalLength = totalLength || 60;
     this.timesDisplayed = 0;
   }
 
@@ -58,7 +58,7 @@ class Trick {
     return this.timesDisplayed == 3;
   }
 
-  show(numbers) {
+  show(numbers = this.numbersGenerator()) {
     var setOfNumbers = this.divideInBatches(numbers);
     console.log(this.timesDisplayed);
     this.timesDisplayed++;
@@ -77,8 +77,8 @@ class Trick {
 
   numbersGenerator() {
     var numbers = [];
-    while (numbers.length < 21) {
-      var number = Math.round(Math.random() * 21);
+    while (numbers.length < this.totalLength) {
+      var number = Math.round(Math.random() * this.totalLength);
       if (numbers.indexOf(number) == -1 && number != 0) numbers.push(number);
     }
     return numbers;
@@ -98,4 +98,4 @@ class Trick {
 }
 
 var trick = new Trick();
-trick.show(trick.numbersGenerator());
+trick.show();
