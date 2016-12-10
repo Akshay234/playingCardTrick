@@ -5,12 +5,15 @@ var rl = readline.createInterface({
 });
 const MAX_TIME_DISPLAYABLE = 3;
 
+const TOTAL_LENGTH = 21;
+
+
 class Trick {
 
-  constructor(totalLength) {
-    this.totalLength = totalLength || 21;
+  constructor() {
     this.timesDisplayed = 0;
   }
+
 
   divideInBatches(numbers) {
     var batches = {batch_1: [], batch_2: [], batch_3: []};
@@ -61,7 +64,6 @@ class Trick {
 
   show(numbers = this.generateRandomNumbers()) {
     var setOfNumbers = this.divideInBatches(numbers);
-    console.log(this.timesDisplayed);
     this.timesDisplayed++;
     this.display(setOfNumbers)
   }
@@ -78,8 +80,8 @@ class Trick {
 
   generateRandomNumbers() {
     var numbers = [];
-    while (numbers.length < this.totalLength) {
-      var number = Math.round(Math.random() * this.totalLength);
+    while (numbers.length < TOTAL_LENGTH) {
+      var number = Math.round(Math.random() * TOTAL_LENGTH);
       if (numbers.indexOf(number) == -1 && number != 0) numbers.push(number);
     }
     return numbers;
