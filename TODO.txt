@@ -14,4 +14,10 @@ STEP 1
 
 
 
-JOB DONE:
+JOB 1 Phrase done:
+
+
+STEP 2 # Implement as web app
+
+
+
