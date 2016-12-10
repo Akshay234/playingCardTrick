@@ -40,21 +40,23 @@ class Trick {
       case '1':
         numbers = batches.batch_2.concat(batches.batch_1).concat(batches.batch_3);
         break;
-      case "2":
+      case '2':
         numbers = batches.batch_1.concat(batches.batch_2).concat(batches.batch_3);
         break;
-      case "3":
+      case '3':
         numbers = batches.batch_1.concat(batches.batch_3).concat(batches.batch_2);
         break;
       default:
-        throw new Error(input + " is a wrong input");
+        throw new Error(input + ' is a wrong input');
     }
 
     if (self.isTimeToReveal()) {
-      console.log('Your number: ', self.revealNumber(numbers));
-      rl.close();
+
+        rl.write(`\nDude your number is ${self.revealNumber(numbers)}\n`);
+        rl.close();
     } else {
-      self.show(numbers);
+        rl.write('\nNow which batch consist your number\n')
+        self.start(numbers);
     }
   };
 
@@ -62,20 +64,25 @@ class Trick {
     return this.timesDisplayed == MAX_TIME_DISPLAYABLE;
   }
 
-  show(numbers = this.generateRandomNumbers()) {
-    var setOfNumbers = this.divideInBatches(numbers);
+  start(numbers = this.generateRandomNumbers()) {
+    var batches = this.divideInBatches(numbers);
     this.timesDisplayed++;
-    this.display(setOfNumbers)
+    this.display(batches);
+    rl.question('\nBatch No: ', this.processInput.bind(null, batches, this));
   }
 
-  display(batches) {
-    var numbersToDisplay =
-      'Batch 1==>  ' + this.decorate(batches.batch_1) +
-      '\nBatch 2==>  ' + this.decorate(batches.batch_2) +
-      '\nBatch 3==>  ' + this.decorate(batches.batch_3) +
-      '\n';
 
-    rl.question(numbersToDisplay, this.processInput.bind(null, batches, this));
+
+
+
+  display(batches) {
+
+    var numbersToDisplay =
+        this.decorate('Batch 1==>  ', batches.batch_1) +
+        this.decorate('\nBatch 2==>  ',batches.batch_2) +
+        this.decorate('\nBatch 3==>  ',batches.batch_3) +
+        '\n';
+    rl.write(numbersToDisplay);
   };
 
   generateRandomNumbers() {
@@ -87,15 +94,17 @@ class Trick {
     return numbers;
   };
 
-  decorate(numbers) {
+  decorate(title, numbers) {
     var maxSpaceLength = 6;
-    return numbers.map(function (number) {
+    var numbersWithPadding = numbers.map(function (number) {
       var spaceLength = maxSpaceLength - String(number).length;
       var rightPadding = Math.floor(spaceLength / 2);
       var leftPadding = spaceLength - rightPadding;
 
-      return " ".repeat(leftPadding) + number + " ".repeat(rightPadding);
-    }).join("|");
+      return ' '.repeat(leftPadding) + number + ' '.repeat(rightPadding);
+    });
+    numbersWithPadding.unshift(title);
+    return numbersWithPadding.join('|');
   };
 }
 
