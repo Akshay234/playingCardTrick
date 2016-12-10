@@ -10,7 +10,7 @@ STEP 1
 	4. then take the user number(1,2 or 3) and again take all the keys value in array with user key number value in centre.
 	5. Again divide the array in three keys of an object.
 	(DO THE SAME #3 TIMES)
-	6. give the 11th number of the array to the user.
+	6. Reveal the number selected by user.
 
 
 
