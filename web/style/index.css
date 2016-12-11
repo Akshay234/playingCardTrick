@@ -1,0 +1,11 @@
+div {
+    width: 210px;
+    height: 250px;
+    border: groove;
+    margin: 10px;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    font-size: 200px;
+    text-align: center;
+}
