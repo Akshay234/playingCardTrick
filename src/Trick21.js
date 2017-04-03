@@ -5,7 +5,7 @@ var rl = readline.createInterface({
 });
 const MAX_TIME_DISPLAYABLE = 3;
 
-const TOTAL_LENGTH = 21;
+const TOTAL_LENGTH = 63;
 
 
 class Trick {
@@ -30,7 +30,11 @@ class Trick {
   };
 
   revealNumber(numbers) {
-    return numbers[Math.floor(numbers.length / 2)];
+	if(numbers.length == 21){
+	    return numbers[Math.floor(numbers.length / 2)];
+	} else {
+		return numbers[Math.floor(numbers.length / 2)-1];
+	}
   };
 
   processInput(batches, self, input) {
